@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect } from 'react';
 
 const ModalContext = createContext();
 
@@ -6,7 +6,7 @@ const Backdrop = () => {
 	return (
 		<ModalContext.Consumer>
 			{value => (
-				value.isOpen && <div onClick={value.closeeOffModal} className='overlay'/>
+				value.isModalOpen && <div className='overlay' onClick={value.closeeOffModal} />
 			)}
 			
 		</ModalContext.Consumer>
@@ -15,54 +15,64 @@ const Backdrop = () => {
 
 const Header = ({children}) => {
 	return (
-			<div>
-				{children}
-			</div>
+		<ModalContext.Consumer>
+			{value => (
+				<div className='modal-header' style={value.textParams.HEADER}>
+					{children}
+				</div>
+			)}
+		</ModalContext.Consumer>
 	);
 };
 
 const Body = ({children}) => {
 	return (
 		<ModalContext.Consumer>
-			{value => (<div>{children}</div>)}
+			{value => (
+				<div className='modal-body'>
+					{children}
+				</div>)}
 		</ModalContext.Consumer>
 	);
 };
 
 const Footer = ({children}) => {
 	return (
-		<div>
+		<div className='modal-footer'>
 			{children}
 		</div>
 	);
 };
 
-const Modal = ({ children, isOpen, isClosableModal=true, isOverflowHidden=true, toggleModalStatus }) => {
+const Modal = ({ children, isModalOpen, toggleModal, isClosableModal = true, isOverflowHidden = true, textParams={} }) => {
+	
+	const closeeOffModal = () => {
+		isModalOpen && isClosableModal && toggleModal()
+		console.log('clicked out side the modal');
+	}
 
-	// const [isModalOpen, toggleModalStatus] = useState(isOpen);
+	window.addEventListener('keydown',
+		(event) => {
+			if ((event.key === 'Escape') && (isModalOpen)) {
+			toggleModal()
+		}
+	})
 
-	if (isOpen && isOverflowHidden) {
+	if (isModalOpen && isOverflowHidden) {
 		document.body.classList.add('active-modal')
 	} else {
 		document.body.classList.remove('active-modal')
 	}
 	
-	const closeeOffModal = () => {
-		isOpen && isClosableModal && toggleModalStatus(false)
-		console.log('clicked out side the modal');
-	}
-
-	
 
 	return (
 		<ModalContext.Provider
-			value={{ isOpen, closeeOffModal, isClosableModal, isOverflowHidden }}>
-			{isOpen &&
+			value={{ isModalOpen, closeeOffModal, isClosableModal, isOverflowHidden, textParams }}>
+			{isModalOpen &&
 				(<div className='modal'>
 					{children}
 				</div>)}
 		</ModalContext.Provider>
-		
 	);
 };
 

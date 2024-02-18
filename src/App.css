@@ -1,6 +1,33 @@
+.App {
+	display: flex;
+	flex-wrap: wrap;
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+.modal-wrapper {
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	line-height: 1.4;
+	background: #f1f1f1;
+	padding: 14px 28px;
+	border-radius: 3px;
+	max-width: 300px;
+	min-width: 100px;
+}
 .modal {
-	width: 300px;
-	height: 300px;
+	/* position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 1.4;
+    background: #f1f1f1;
+    padding: 14px 28px;
+    border-radius: 3px;
+    max-width: 600px;
+    min-width: 300px; */
 }
 
 .overlay {
@@ -12,13 +39,21 @@
 	bottom: 0;
 	position: absolute;	
 	overflow-x: hidden;
+	background: rgba(0, 0, 0, 0.63);
+}
+
+.modal-header {
+
+}
+
+.modal-body {
+
+}
+
+.modal-footer {
+
 }
 
 .active-modal {
 	overflow: hidden;
-}
-
-
-.overlay {
-	background: rgba(0, 0, 0, 0.63);
 }
