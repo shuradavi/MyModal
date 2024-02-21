@@ -1,62 +1,50 @@
-import React, { createContext, useEffect } from 'react';
-
-const ModalContext = createContext();
+import React, { createContext, useState } from 'react';
+import Drawer from '../Drawer/Drawer';
 
 const Backdrop = () => {
-	return (
-		<ModalContext.Consumer>
-			{value => (
-				value.isModalOpen && <div className='overlay' onClick={value.closeeOffModal} />
-			)}
-			
-		</ModalContext.Consumer>
-	);
+	return <div className='overlay'/>
 };
 
-const Header = ({children}) => {
-	return (
-		<ModalContext.Consumer>
-			{value => (
-				<div className='modal-header' style={value.textParams.HEADER}>
-					{children}
-				</div>
-			)}
-		</ModalContext.Consumer>
-	);
+export const Header = ({ children }) => {
+	return <div className='header-container'>{children}</div>
 };
 
-const Body = ({children}) => {
+export const Body = ({ children }) => {
 	return (
-		<ModalContext.Consumer>
-			{value => (
-				<div className='modal-body'>
-					{children}
-				</div>)}
-		</ModalContext.Consumer>
-	);
+		<div className='body-container' style={{ cursor: 'pointer' }}>
+			{children}
+		</div>)
 };
 
-const Footer = ({children}) => {
+export const Footer = ({ children }) => {
 	return (
-		<div className='modal-footer'>
+		<div className='footer-container'>
 			{children}
 		</div>
-	);
+	)
 };
 
-const Modal = ({ children, isModalOpen, toggleModal, isClosableModal = true, isOverflowHidden = true, textParams={} }) => {
-	
-	const closeeOffModal = () => {
-		isModalOpen && isClosableModal && toggleModal()
-		console.log('clicked out side the modal');
+// const Modal = ({ children, isModalOpen, toggleModal, showDrawer, isClosableModal = true, isOverflowHidden = true }) => {
+const Modal = ({ children }) => {
+	const [isModalOpen, setModal] = useState(false);
+	const closeOffModal = () => {
+		isModalOpen && setModal(!isModalOpen)
+		console.log('It\'s close off modal');
 	}
+
+	const ModalContext = createContext(closeOffModal);
+
+	// const closeeOffModal = () => {
+	// 	isModalOpen && isClosableModal && toggleModal()
+	// 	console.log('clicked out side the modal');
+	// }
 
 	window.addEventListener('keydown',
 		(event) => {
 			if ((event.key === 'Escape') && (isModalOpen)) {
-			toggleModal()
-		}
-	})
+				toggleModal()
+			}
+		})
 
 	if (isModalOpen && isOverflowHidden) {
 		document.body.classList.add('active-modal')
@@ -65,20 +53,12 @@ const Modal = ({ children, isModalOpen, toggleModal, isClosableModal = true, isO
 	}
 	
 
-	return (
-		<ModalContext.Provider
-			value={{ isModalOpen, closeeOffModal, isClosableModal, isOverflowHidden, textParams }}>
-			{isModalOpen &&
-				(<div className='modal'>
-					{children}
-				</div>)}
-		</ModalContext.Provider>
-	);
+	return <div className='modal'>{children}</div>
 };
 
-Modal.Backdrop = Backdrop;
-Modal.Header = Header;
-Modal.Body = Body;
-Modal.Footer = Footer;
+	Modal.Backdrop = Backdrop;
+	Modal.Header = Header;
+	Modal.Body = Body;
+	Modal.Footer = Footer;
 
-export default Modal;
+	export default Modal;
