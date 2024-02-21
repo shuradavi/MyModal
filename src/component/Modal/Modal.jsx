@@ -1,8 +1,8 @@
-import React, { createContext, useState } from 'react';
-import Drawer from '../Drawer/Drawer';
+import React, { createContext, useContext } from 'react';
+// import Drawer from '../Drawer/Drawer';
 
 const Backdrop = () => {
-	return <div className='overlay'/>
+	return <div onClick={toggleModal} className='overlay'/>
 };
 
 export const Header = ({ children }) => {
@@ -24,15 +24,16 @@ export const Footer = ({ children }) => {
 	)
 };
 
-// const Modal = ({ children, isModalOpen, toggleModal, showDrawer, isClosableModal = true, isOverflowHidden = true }) => {
-const Modal = ({ children }) => {
-	const [isModalOpen, setModal] = useState(false);
+const Modal = ({ children, toggleModal, showDrawer, isClosableModal = true, isOverflowHidden = true }) => {
+
+	const modal = useContext(ModalContext);
+
+	const ModalContext = createContext(isModalOpen);
+
 	const closeOffModal = () => {
-		isModalOpen && setModal(!isModalOpen)
+		modal && setModal(!isModalOpen)
 		console.log('It\'s close off modal');
 	}
-
-	const ModalContext = createContext(closeOffModal);
 
 	// const closeeOffModal = () => {
 	// 	isModalOpen && isClosableModal && toggleModal()
@@ -53,7 +54,13 @@ const Modal = ({ children }) => {
 	}
 	
 
-	return <div className='modal'>{children}</div>
+	return (
+		isModalOpen &&
+		<ModalContext.Provider value={isM}>
+			<div className='modal'>{children}</div>
+		</ModalContext.Provider>
+		
+	)
 };
 
 	Modal.Backdrop = Backdrop;
