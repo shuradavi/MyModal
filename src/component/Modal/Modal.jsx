@@ -1,8 +1,12 @@
-import React, { createContext, useContext } from 'react';
-// import Drawer from '../Drawer/Drawer';
+import React from 'react';
+import { ModalContext, useModalContext } from '../../context/context';
 
-const Backdrop = () => {
-	return <div onClick={toggleModal} className='overlay'/>
+const Backdrop = ({ props, isClosableModal = true }) => {
+	if (isClosableModal) {
+		return <div className='overlay' onClick={props}/>
+	} else {
+		return <div className='overlay'/>
+	}
 };
 
 export const Header = ({ children }) => {
@@ -24,43 +28,23 @@ export const Footer = ({ children }) => {
 	)
 };
 
-const Modal = ({ children, toggleModal, showDrawer, isClosableModal = true, isOverflowHidden = true }) => {
-
-	const modal = useContext(ModalContext);
-
-	const ModalContext = createContext(isModalOpen);
-
-	const closeOffModal = () => {
-		modal && setModal(!isModalOpen)
-		console.log('It\'s close off modal');
-	}
-
-	// const closeeOffModal = () => {
-	// 	isModalOpen && isClosableModal && toggleModal()
-	// 	console.log('clicked out side the modal');
-	// }
+const Modal = ({ children, toggleModal, isOverflowHidden = true }) => {	
+	const modal = useModalContext(ModalContext);
 
 	window.addEventListener('keydown',
 		(event) => {
-			if ((event.key === 'Escape') && (isModalOpen)) {
+			if ((event.key === 'Escape') && (modal)) {
 				toggleModal()
 			}
 		})
 
-	if (isModalOpen && isOverflowHidden) {
+	if (modal && isOverflowHidden) {
 		document.body.classList.add('active-modal')
 	} else {
 		document.body.classList.remove('active-modal')
 	}
 	
-
-	return (
-		isModalOpen &&
-		<ModalContext.Provider value={isM}>
-			<div className='modal'>{children}</div>
-		</ModalContext.Provider>
-		
-	)
+	return modal && <div className='modal'>{children}</div>
 };
 
 	Modal.Backdrop = Backdrop;

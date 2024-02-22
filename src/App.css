@@ -1,4 +1,10 @@
+:root {
+	width: 99%;
+	height: 100%;
+}
 .App {
+	width: 100%;
+	height: 100%;
 	display: flex;
 	flex-wrap: wrap;
 	margin-left: 10px;
@@ -11,8 +17,8 @@
 	height: 100%;
 }
 
-.modal-wrapper {
-	position: absolute;
+.modal-container {
+	position: fixed;
 	top: 40%;
 	left: 50%;
 	transform: translate(-50%, -50%);
@@ -25,26 +31,27 @@
 }
 .modal {
 	/* position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    line-height: 1.4;
-    background: #f1f1f1;
-    padding: 14px 28px;
-    border-radius: 3px;
-    max-width: 600px;
-    min-width: 300px; */
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	line-height: 1.4;
+	background: #f1f1f1;
+	padding: 14px 28px;
+	border-radius: 3px;
+	max-width: 300px;
+	min-width: 100px; */
 }
 
 .overlay {
-	width: 100vw;
-	height: 100vh;
+	width: 100%;
+	height: 100%;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
-	position: absolute;	
+	position:fixed;	
 	overflow-x: hidden;
+	overflow-y: hidden;
 	background: rgba(0, 0, 0, 0.63);
 }
 

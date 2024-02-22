@@ -1,14 +1,5 @@
 import React from 'react';
 import { Body, Header, Footer } from '../Modal/Modal';
-
-
-// const Body = ({children}) => {
-// 	return (
-// 			<div className='body-container' style={{cursor: 'pointer'}}>
-// 				{children}
-// 			</div>
-// 	)
-// }
 				
 const Drawer = ({ children, isDrawerOpen}) => {
 	return (
