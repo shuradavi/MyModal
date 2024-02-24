@@ -19,19 +19,22 @@ const App = () => {
 	return (
 		<div className='App'>
 			<button style={{marginBottom: '15px'}} onClick={toggleModal}>Open</button>
-			<ModalContext.Provider value={modal}>
-				<DrawerContext.Provider value={drawer}>
-					<Modal toggleModal={toggleModal}>
-						<Modal.Backdrop props={toggleModal}/>
-						<div className='modal-container'>
-							<Modal.Header>Быстрые ставки + большие выигрыши</Modal.Header>
-							<Modal.Body props={toggleDrawer}>Зарегистрироваться и получить фрибет</Modal.Body>
-							<Modal.Body>Пригласить друга</Modal.Body>
-							<Modal.Footer>Ваши оценки</Modal.Footer>
-						</div>
-					</Modal>
-				</DrawerContext.Provider>	
-			</ModalContext.Provider>
+			<Modal modal={modal} toggleModal={toggleModal}>
+				<Modal.Backdrop />
+				<Modal.Content>
+					<Modal.Header>Быстрые ставки + большие выигрыши</Modal.Header>
+					<Modal.Body>Зарегистрироваться и получить фрибет</Modal.Body>
+					<Modal.Footer>Ваши оценки</Modal.Footer>
+					<Modal.Drawer drawer={drawer} toggleDrawer={toggleDrawer}>
+						<Modal.Drawer.Content>
+							<Modal.Drawer.Header></Modal.Drawer.Header>
+							<Modal.Drawer.Body></Modal.Drawer.Body>
+							<Modal.Drawer.Footer></Modal.Drawer.Footer>
+						</Modal.Drawer.Content>
+					</Modal.Drawer>
+				</Modal.Content>
+				
+			</Modal>
 		</div>
 	);
 };

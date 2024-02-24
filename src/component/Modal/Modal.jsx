@@ -3,8 +3,7 @@ import {Drawer} from '../Drawer/Drawer';
 import { ModalContext, useModalContext } from '../../context/context';
 import { Backdrop, Header, Body, Footer } from '../../constructor/constructor';
 
-export const Modal = ({ children, toggleModal, isOverflowHidden = true }) => {	
-	const modal = useModalContext(ModalContext);
+export const Modal = ({modal, children, toggleModal, isOverflowHidden = true }) => {	
 
 	window.addEventListener('keydown',
 		(event) => {
@@ -20,14 +19,11 @@ export const Modal = ({ children, toggleModal, isOverflowHidden = true }) => {
 	}
 	
 	return (modal &&
-		<div className='modal'>
-			{children}
-				<Drawer>
-					<Drawer.Header>Header</Drawer.Header>
-					<Drawer.Body>Body</Drawer.Body>
-					<Drawer.Footer>Footer</Drawer.Footer>
-				</Drawer>
-		</div>
+		<ModalContext.Provider value={modal}>
+			<div className='modal'>
+				{children}
+			</div>
+		</ModalContext.Provider>
 	)
 };
 
@@ -35,3 +31,4 @@ export const Modal = ({ children, toggleModal, isOverflowHidden = true }) => {
 	Modal.Header = Header;
 	Modal.Body = Body;
 	Modal.Footer = Footer;
+	
