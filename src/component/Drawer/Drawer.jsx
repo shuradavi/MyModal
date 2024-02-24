@@ -1,19 +1,13 @@
 import React from 'react';
-import { Body, Header, Footer } from '../Modal/Modal';
+import { Header, Body, Footer } from '../../constructor/constructor';
+import { useDrawerContext, DrawerContext } from '../../context/context';
 				
-const Drawer = ({ children, isDrawerOpen}) => {
-	return (
-		<>
-			{isDrawerOpen &&
-				<div className='drawer'>
-					{children}
-				</div>
-			}
-		</>
-	);
+export const Drawer = ({children}) => {
+	const drawer = useDrawerContext(DrawerContext);
+	
+	return (drawer && <div className='drawer'>{children}</div>);
 };
+
 Drawer.Header = Header;
 Drawer.Body = Body;
 Drawer.Footer = Footer;
-
-export default Drawer;
