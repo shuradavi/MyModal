@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react';
-import { ModalContext, useModalContext } from '../../context/context';
+import { ModalContext } from '../../context/context';
 import { ModalFooter, ModalContent, ModalBody, ModalHeader, Backdrop, DrawerContent,  DrawerBody, Footer, DrawerHeader, DrawerOpenButton } from '../../constructor/constructor';
 
-export const Modal = ({ modal, drawer, children, onCloseHandler, onOpenDrawerHandler,  isClosableModal = true, isOverflowHidden = true }) => {	
+export const Modal = ({ children, modal, onCloseHandler, isDrawerOpen, isClosableModal = true, isOverflowHidden = true }) => {	
 	
 	const escapeFunc = (event) => {
-		if ((event.key === 'Escape') && (modal)) {
+		
+		if ((event.key === 'Escape') && (modal) && (!isDrawerOpen)) {
 			onCloseHandler()
 		};
 	};
 
 	useEffect(() => {
-		window.removeEventListener('keydown', escapeFunc);
 		window.addEventListener('keydown', escapeFunc);
 
 		if (modal && isOverflowHidden) {
@@ -22,10 +22,10 @@ export const Modal = ({ modal, drawer, children, onCloseHandler, onOpenDrawerHan
 			window.removeEventListener('keydown', escapeFunc);
 			document.body.classList.remove('active-modal')
 		}
-	}, [drawer])
+	}, [isDrawerOpen])
 	
 	return (
-		<ModalContext.Provider value={{modal, onCloseHandler, isClosableModal, onOpenDrawerHandler}}>
+		<ModalContext.Provider value={{ modal, onCloseHandler, isClosableModal }}>
 			<div>
 				{children}
 			</div>

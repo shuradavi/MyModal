@@ -1,5 +1,4 @@
-import { useContext } from "react";
-import { DrawerContext, ModalContext, useDrawerContext, useModalContext } from "../context/context";
+import { ModalContext, useModalContext } from "../context/context";
 import Button from "../component/Button/Button";
 
 
@@ -17,10 +16,7 @@ export const Header = ({ children }) => {
 	return <>{children}</>
 };
 export const Body = ({ children }) => {
-	return (
-		<>
-			{children}
-		</>)
+	return <>{children}</>
 };
 export const Footer = ({ children }) => {
 	return (
@@ -31,7 +27,7 @@ export const Footer = ({ children }) => {
 };
 
 export const ModalHeader = ({ children }) => {
-	const modalContext = useModalContext(ModalContext);
+	const context = useModalContext(ModalContext);
 	return (
 		<Header>
 			<div className="modalHeader-wrapper">
@@ -42,7 +38,7 @@ export const ModalHeader = ({ children }) => {
 };
 
 export const ModalBody = ({ children }) => {
-	const modalContext = useModalContext(ModalContext);
+	const context = useModalContext(ModalContext);
 	return (
 		<Body>
 			<div className="modalBody-wrapper">
@@ -52,7 +48,7 @@ export const ModalBody = ({ children }) => {
 };
 
 export const ModalFooter = ({ children }) => {
-	const modalContext = useModalContext(ModalContext);
+	const context = useModalContext(ModalContext);
 	return (
 		<Footer>
 			{children}
@@ -61,7 +57,7 @@ export const ModalFooter = ({ children }) => {
 }
 
 export const ModalContent = ({ children }) => {
-	const modalContext = useModalContext(ModalContext);
+	const context = useModalContext(ModalContext);
 	return (
 		<Content>
 			<div className="modalContent-wrapper">

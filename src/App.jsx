@@ -2,27 +2,22 @@ import React, { useState } from 'react';
 import './App.css';
 import { Modal } from './component/Modal/Modal';
 
-
-
-
 const App = () => {
 	const [modal, setModal] = useState(false)
 	const [drawer, setDrawer] = useState(false)
 
 	const toggleModal = () => {
-		console.log('clicked toggle');
 		setModal(!modal)
 	}
 
 	const toggleDrawer = () => {
-		console.log('clicked toggle drawer');
 		setDrawer(!drawer)
 	}
 
 	return (
 		<div className='App'>
 			<button style={{ marginBottom: '15px' }} onClick={toggleModal}>Open</button>
-			{modal && <Modal modal={modal} onCloseHandler={toggleModal} drawer={drawer}>
+			{modal && <Modal modal={modal} onCloseHandler={toggleModal} isDrawerOpen={drawer}>
 				<Modal.Backdrop />
 				<Modal.Content>
 					<Modal.Header>Modal Header</Modal.Header>
