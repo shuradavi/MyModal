@@ -1,41 +1,115 @@
 import { useContext } from "react";
-import { DrawerContext, ModalContext } from "../context/context";
-import { Drawer } from "../component/Drawer/Drawer";
-
-export const Backdrop = ({ props, isClosableModal = true }) => {
-	if (isClosableModal) {
-		return <div className='overlay' onClick={props}/>
-	} else {
-		return <div className='overlay'/>
-	}
-};
-
-export const Header = ({ children, onCloseHandler }) => {
-	return <div className='header-container'>{children}</div>
-};
+import { DrawerContext, ModalContext, useDrawerContext, useModalContext } from "../context/context";
+import Button from "../component/Button/Button";
 
 
-const ModalHeader = ({children}) => {
-	const context = useContext(ModalContext);
-	return <Header props={context}>{children}</Header>
+export const Backdrop = () => {
+	const modalContext = useModalContext(ModalContext);
+	if (modalContext.isClosableModal) {
+		return <div className="backdrop" onClick={modalContext.onCloseHandler}/>
+	} else return <div className="backdrop"/>
+	
 }
-
-const overlayHeader = ({children}) => {
-	const context = useContext(DrawerContext);
-	return <Header props={context}>{children}</Header>
+export const Content = ({ children }) => {
+	return <>{children }</>
 }
-
-export const Body = ({props, children}) => {
+export const Header = ({ children }) => {
+	return <>{children}</>
+};
+export const Body = ({ children }) => {
 	return (
-		<div onClick={props} className='body-container' style={{ cursor: 'pointer' }}>
+		<>
 			{children}
-		</div>)
+		</>)
 };
-
 export const Footer = ({ children }) => {
 	return (
-		<div className='footer-container'>
+		<div className="footer-container">
 			{children}
 		</div>
 	)
 };
+
+export const ModalHeader = ({ children }) => {
+	const modalContext = useModalContext(ModalContext);
+	return (
+		<Header>
+			<div className="modalHeader-wrapper">
+				{children}
+			</div>
+		</Header>
+	)
+};
+
+export const ModalBody = ({ children }) => {
+	const modalContext = useModalContext(ModalContext);
+	return (
+		<Body>
+			<div className="modalBody-wrapper">
+				{children}
+			</div>
+		</Body>)
+};
+
+export const ModalFooter = ({ children }) => {
+	const modalContext = useModalContext(ModalContext);
+	return (
+		<Footer>
+			{children}
+		</Footer>
+	)
+}
+
+export const ModalContent = ({ children }) => {
+	const modalContext = useModalContext(ModalContext);
+	return (
+		<Content>
+			<div className="modalContent-wrapper">
+				<div className="modalContent">
+					{children}
+				</div>
+			</div>
+		</Content>
+	)
+}
+
+export const DrawerContent = ({ children }) => {
+	return (
+		<Content>
+			<div className="drawerContent-wrapper">
+				<div className="drawerContent">
+					{children}
+				</div>
+			</div>
+		</Content>
+	)
+}
+
+export const DrawerHeader = ({ children }) => {
+	return (
+		<Header>
+			<div className="drawerHeader-wrapper">
+				{children}
+			</div>
+		</Header>
+	)
+};
+
+export const DrawerBody = ({ children }) => {
+	return (
+		<Body>
+			<div className="drawerBody-wrapper">
+				{children}
+			</div>
+		</Body>)
+};
+
+export const DrawerOpenButton = ({  text, onOpenDrawer }) => {
+	return (
+		<Button onOpen={onOpenDrawer}>{text}</Button>
+	);
+}
+// export const DrawerHeader = ({ children }) => {
+// 	const context = useDrawerContext(DrawerContext);
+// 	return <Header>{children}</Header>
+// }

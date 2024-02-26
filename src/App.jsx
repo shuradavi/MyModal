@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import './App.css';
 import { Modal } from './component/Modal/Modal';
-import { DrawerContext, ModalContext } from './context/context';
+
+
+
 
 const App = () => {
 	const [modal, setModal] = useState(false)
@@ -11,6 +13,7 @@ const App = () => {
 		console.log('clicked toggle');
 		setModal(!modal)
 	}
+
 	const toggleDrawer = () => {
 		console.log('clicked toggle drawer');
 		setDrawer(!drawer)
@@ -18,23 +21,31 @@ const App = () => {
 
 	return (
 		<div className='App'>
-			<button style={{marginBottom: '15px'}} onClick={toggleModal}>Open</button>
-			<Modal modal={modal} toggleModal={toggleModal}>
+			<button style={{ marginBottom: '15px' }} onClick={toggleModal}>Open</button>
+			{modal && <Modal modal={modal} onCloseHandler={toggleModal} drawer={drawer}>
 				<Modal.Backdrop />
 				<Modal.Content>
-					<Modal.Header>Быстрые ставки + большие выигрыши</Modal.Header>
-					<Modal.Body>Зарегистрироваться и получить фрибет</Modal.Body>
-					<Modal.Footer>Ваши оценки</Modal.Footer>
-					<Modal.Drawer drawer={drawer} toggleDrawer={toggleDrawer}>
+					<Modal.Header>Modal Header</Modal.Header>
+					<Modal.Body>
+							Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis labore explicabo laboriosam, officiis eaque, tempore doloribus minus porro ad nam vel culpa ipsum illum. Soluta dolores nam inventore assumenda consectetur.
+						<Modal.DrawerOpenButton text='OPEN DRAWER' onOpenDrawer={toggleDrawer} />
+					</Modal.Body>
+					<Modal.Footer>
+						Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex, vitae?
+					</Modal.Footer>
+					{drawer && <Modal.Drawer drawer={drawer} onCloseHandler={toggleDrawer}>
 						<Modal.Drawer.Content>
-							<Modal.Drawer.Header></Modal.Drawer.Header>
-							<Modal.Drawer.Body></Modal.Drawer.Body>
-							<Modal.Drawer.Footer></Modal.Drawer.Footer>
+							<Modal.Drawer.Header>Drawer Header</Modal.Drawer.Header>
+							<Modal.Drawer.Body>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, architecto hic qui dolorem possimus numquam nemo cupiditate adipisci vel itaque cum praesentium doloremque repellat quasi neque eos tempore ea illum!
+							</Modal.Drawer.Body>
+							<Modal.Drawer.Footer>
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, facilis.
+							</Modal.Drawer.Footer>
 						</Modal.Drawer.Content>
-					</Modal.Drawer>
+					</Modal.Drawer>}
 				</Modal.Content>
-				
-			</Modal>
+			</Modal>}
 		</div>
 	);
 };
